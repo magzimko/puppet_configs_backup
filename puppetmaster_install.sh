@@ -5,7 +5,7 @@ apt-get update
 echo =============================================
 echo We're going to install puppet master
 echo =============================================
-    apt-get install puppetserver
+    apt-get install -y puppetserver
 echo =============================================
 COMMAND=nope
 while [ "$COMMAND" != "end" ]
