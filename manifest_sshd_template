@@ -1,0 +1,12 @@
+class ssh {
+    package { ssh: ensure => installed }
+    file { "/etc/ssh/sshd_config":
+        source => 'puppet:///modules/ssh/sshd_config',
+        ensure => present,
+        require => Package[ssh]
+    }
+    service { sshd:
+        ensure => running,
+        require => [File["/etc/ssh/sshd_config"], Package[ssh]]
+    }
+}
