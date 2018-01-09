@@ -1,0 +1,33 @@
+# run 'apt-get update'
+exec { 'apt-update':                    # Resource exec 'apt-update'
+command => '/usr/bin/apt-get update'  # command to start this resource 
+}
+#  apache2 installation
+package { 'apache2':
+require => Exec['apt-update'],        # kick 'apt-update' before installation
+ensure => installed,
+}
+# apache2 service startup
+service { 'apache2':
+ensure => running,
+}
+#  mysql-server installation
+package { 'mysql-server':
+require => Exec['apt-update'],        # check for 'apt-update' run befoer install
+ensure => installed,
+}
+# mysql service startup
+service { 'mysql':
+ensure => running,
+}
+# php5 installation
+package { 'php5':
+require => Exec['apt-update'],        # same agin with 'apt-update' 
+ensure => installed,
+}
+# зstartup of info.php
+file { '/var/www/html/info.php':
+ensure => file,
+content => '<?php  phpinfo(); ?>',    # content of phpinfo
+require => Package['apache2'],        # check if 'apache2' installed
+}
