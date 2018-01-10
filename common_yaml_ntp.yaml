@@ -1,4 +1,4 @@
-classes:
+my_classes:
   - ntp
 ntp::restrict:
   - restrict default kod nomodify notrap nopeer noquery
